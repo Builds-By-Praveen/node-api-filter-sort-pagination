@@ -1,6 +1,6 @@
 import items from "../data/items.js";
 
-const ListItems = async ({
+export const ListItems = async ({
   q,
   page = 1,
   limit = 10,

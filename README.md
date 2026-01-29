@@ -197,3 +197,151 @@ npm start
        ]
      }
      ```
+
+---
+
+## 🧪 Testing
+
+This project uses [Jest](https://jestjs.io/) for automated testing, with [Supertest](https://github.com/ladjs/supertest) for HTTP integration tests.
+
+### Run All Tests
+
+```bash
+npm test
+```
+
+Example Output:
+
+```sh
+ PASS  tests/integration/items.controller.test.js
+  ● Console
+
+    console.log
+      [dotenvx@1.52.0] injecting env (1) from .env
+
+      at stdout (node_modules/@dotenvx/dotenvx/src/shared/logger.js:40:13)
+
+ PASS  tests/unit/items.schema.test.js
+ PASS  tests/unit/items.service.test.js
+
+Test Suites: 3 passed, 3 total
+Tests:       17 passed, 17 total
+Snapshots:   0 total
+Time:        0.904 s, estimated 1 s
+Ran all test suites.
+```
+
+### Run Unit Tests Only
+
+```bash
+npm run test:unit
+```
+
+Runs tests in `tests/unit/`:
+
+- **Service layer** (`items.service.js`)
+  - Pagination logic
+  - Filtering by category and price range
+  - Sorting by price and created_at
+- **Validation layer** (`items.schema.js`)
+  - Query parameter rules
+  - Edge cases (negative prices, minPrice > maxPrice, invalid sort options, limit > MAX_LIMIT)
+
+Example Output:
+
+```sh
+ PASS  tests/unit/items.schema.test.js
+ PASS  tests/unit/items.service.test.js
+
+Test Suites: 2 passed, 2 total
+Tests:       12 passed, 12 total
+Snapshots:   0 total
+Time:        0.318 s, estimated 1 s
+Ran all test suites matching tests/unit.
+```
+
+### Run Integration Tests Only
+
+```bash
+npm run test:integration
+```
+
+Runs tests in `tests/integration/`:
+
+- **Controller layer** (`items.controller.js`)
+  - Full API responses with Supertest
+  - Status codes (200, 400, 500)
+  - JSON structure and data correctness
+  - Filters, sorting, and error handling
+
+Example Output:
+
+```sh
+ PASS  tests/integration/items.controller.test.js
+  GET /items API
+    √ returns first page of items (23 ms)
+    √ filters by category (4 ms)
+    √ filters by price range (4 ms)
+    √ sorts by price descending (4 ms)
+    √ invalid query params return 400 (3 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       5 passed, 5 total
+Snapshots:   0 total
+Time:        0.603 s, estimated 1 s
+Ran all test suites matching tests/integration.
+```
+
+### Coverage Report
+
+```bash
+npm run test:coverage
+```
+
+Generates a coverage summary in the terminal and a detailed HTML report in:
+
+```
+coverage/lcov-report/index.html
+```
+
+### Example Output
+
+```sh
+ PASS  tests/integration/items.controller.test.js
+  ● Console
+
+    console.log
+      [dotenvx@1.52.0] injecting env (1) from .env
+
+      at stdout (node_modules/@dotenvx/dotenvx/src/shared/logger.js:40:13)
+
+ PASS  tests/unit/items.schema.test.js
+ PASS  tests/unit/items.service.test.js
+--------------------------|---------|----------|---------|---------|-------------------
+File                      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+--------------------------|---------|----------|---------|---------|-------------------
+All files                 |   71.08 |    52.63 |   85.71 |   70.37 |
+ src                      |   71.42 |    33.33 |       0 |   71.42 |
+  app.js                  |   71.42 |    33.33 |       0 |   71.42 | 14-15
+ src/config               |     100 |      100 |     100 |     100 |
+  constants.js            |     100 |      100 |     100 |     100 |
+ src/controllers          |      75 |       50 |     100 |      75 |
+  items.controller.js     |      75 |       50 |     100 |      75 | 20,33
+ src/data                 |     100 |      100 |     100 |     100 |
+  items.js                |     100 |      100 |     100 |     100 |
+ src/middlewares          |   30.76 |     5.12 |   66.66 |   30.76 |
+  validation.middlware.js |   30.76 |     5.12 |   66.66 |   30.76 | 15-53
+ src/routes               |     100 |      100 |     100 |     100 |
+  index.js                |     100 |      100 |     100 |     100 |
+ src/services             |   92.85 |     91.3 |   85.71 |    92.3 |
+  items.service.js        |   92.85 |     91.3 |   85.71 |    92.3 | 17-18
+ src/validations          |     100 |      100 |     100 |     100 |
+  items.schema.js         |     100 |      100 |     100 |     100 |
+--------------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 3 passed, 3 total
+Tests:       17 passed, 17 total
+Snapshots:   0 total
+Time:        0.881 s, estimated 1 s
+Ran all test suites.
+```
