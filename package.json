@@ -1,0 +1,31 @@
+{
+  "name": "node-api-filter-sort-pagination",
+  "version": "1.0.0",
+  "description": "A simple Express.js API demonstrating pagination, filtering, sorting, and query parameter validation.",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Builds-By-Praveen/node-api-filter-sort-pagination.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Builds-By-Praveen/node-api-filter-sort-pagination/issues"
+  },
+  "homepage": "https://github.com/Builds-By-Praveen/node-api-filter-sort-pagination#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "jest": "^30.2.0",
+    "nodemon": "^3.1.11"
+  }
+}
